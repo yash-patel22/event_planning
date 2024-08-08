@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planning Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 80px 20px 20px; /* Adjusted for fixed header */
+        }
+
+        .section {
+            flex: 1 1 calc(25% - 40px);
+            margin: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 20px;
+            background: url('images/poster.jpg') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+        }
+
+        #budget-calculator form,
+        #contact form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #budget-calculator form label,
+        #contact form label {
+            margin-bottom: 5px;
+        }
+
+        #budget-calculator form input,
+        #budget-calculator form select,
+        #contact form input,
+        #contact form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #budget-calculator form button,
+        #contact form button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #budget-calculator form button:hover,
+        #contact form button:hover {
+            background-color: #555;
+        }
+
+        #budget-result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #about {
+            background: blue;
+            background-size: cover;
+            color: #fff;
+            padding: 40px 20px;
+            border-radius: 8px;
+        }
+
+        #about .team-member {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #about .team-member img {
+            border-radius: 50%;
+            margin-right: 20px;
+            width: 80px;
+            height: 80px;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#budget-calculator">Budget Calculator</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="hero-section">
+        <h1 style="background-color: blue;">Welcome to Our Event Planning Service</h1>
+        <p>Your perfect event, made easy.</p>
+    </section>
+    <div class="content-container">
+        <section id="services" class="section">
+            <h2>Our Services</h2>
+            <div class="services-container">
+                <div class="service">
+                    <img src="images/wedding.jpg" alt="Wedding">
+                    <h3>Weddings</h3>
+                    <p>Make your special day unforgettable with our expert planning services.</p>
+                </div>
+                <div class="service">
+                    <img src="images/corporate.jpg" alt="Corporate Event">
+                    <h3>Corporate Events</h3>
+                    <p>Professional and seamless corporate event planning for all your business needs.</p>
+                </div>
+                <div class="service">
+                    <img src="images/birthday.jpg" alt="Birthday Party">
+                    <h3>Birthday Parties</h3>
+                    <p>Celebrate birthdays in style with customized party planning.</p>
+                </div>
+            </div>
+        </section>
+        <section id="budget-calculator" class="section">
+            <h2>Budget Calculator</h2>
+            <form id="calculator-form">
+                <label for="event-type">Event Type:</label>
+                <select id="event-type" name="event-type">
+                    <option value="wedding">Wedding</option>
+                    <option value="corporate">Corporate Event</option>
+                    <option value="birthday">Birthday Party</option>
+                </select>
+                <label for="guest-count">Number of Guests:</label>
+                <input type="number" id="guest-count" name="guest-count" min="1">
+                <button type="button" onclick="calculateBudget()">Calculate</button>
+            </form>
+            <div id="budget-result"></div>
+        </section>
+        <section id="contact" class="section">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <section id="about" class="section">
+            <h2>About Us</h2>
+            <p>Our event planning service has been creating memorable experiences for over a decade. We specialize in making your events unforgettable with our professional planning and execution.</p>
+            <div class="team-member">
+                <img src="https://png.pngtree.com/png-vector/20220629/ourmid/pngtree-event-planning-concept-icon-png-image_5601705.png" alt="Dipak Patel">
+                <div>
+                    <h3>Krurmil Dipak Patel</h3>
+                    <p>Founder & CEO</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://png.pngtree.com/png-vector/20220629/ourmid/pngtree-event-planning-concept-icon-png-image_5601705.png" alt="Yash">
+                <div>
+                    <h3>Yash Patel</h3>
+                    <p>Lead Planner</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://png.pngtree.com/png-vector/20220629/ourmid/pngtree-event-planning-concept-icon-png-image_5601705.png" alt="VK BAJAJ">
+                <div>
+                    <h3>VK BAJAJ</h3>
+                    <p>Event Coordinator</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Event Planning Service. All rights reserved.</p>
+    </footer>
+    <script>
+        // JavaScript code to handle budget calculation
+        function calculateBudget() {
+            var eventType = document.getElementById('event-type').value;
+            var guestCount = document.getElementById('guest-count').value;
+            var costPerGuest;
+
+            switch (eventType) {
+                case 'wedding':
+                    costPerGuest = 100;
+                    break;
+                case 'corporate':
+                    costPerGuest = 75;
+                    break;
+                case 'birthday':
+                    costPerGuest = 50;
+                    break;
+                default:
+                    costPerGuest = 0;
+            }
+
+            var totalCost = costPerGuest * guestCount;
+            document.getElementById('budget-result').innerText = 'Estimated Budget: $' + totalCost;
+        }
+
+        // JavaScript code to handle section animations on scroll
+        window.addEventListener('scroll', function() {
+            var sections = document.querySelectorAll('.section');
+            var scrollPosition = window.scrollY + window.innerHeight;
+
+            sections.forEach(function(section) {
+                if (section.offsetTop < scrollPosition) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+
+        // JavaScript code to handle form submission (contact form)
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                alert('Message sent successfully!');
+                // Here you would typically handle the form submission to the server
+                document.getElementById('contact-form').reset();
+            } else {
+                alert('Please fill out all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
